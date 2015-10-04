@@ -29,9 +29,9 @@ As of v3.0 of this template, there are a few libraries built into it that will m
 
 Using the [post type API](https://github.com/hlashbrooke/am2-facebook-crawlable-comments/blob/master/includes/lib/class-am2-facebook-crawlable-comments-post-type.php) and the wrapper function from the main plugin class you can easily register new post types with one line of code. For exapmle if you wanted to register a `listing` post type then you could do it like this:
 
-`WordPress_Plugin_Template()->register_post_type( 'listing', __( 'Listings', 'am2-facebook-crawlable-comments' ), __( 'Listing', 'am2-facebook-crawlable-comments' ) );`
+`AM2_FB_Crawlable_Comments()->register_post_type( 'listing', __( 'Listings', 'am2-facebook-crawlable-comments' ), __( 'Listing', 'am2-facebook-crawlable-comments' ) );`
 
-*Note that the `WordPress_Plugin_Template()` function name and the `am2-facebook-crawlable-comments` text domain will each be unique to your plugin after you have used the cloning script.*
+*Note that the `AM2_FB_Crawlable_Comments()` function name and the `am2-facebook-crawlable-comments` text domain will each be unique to your plugin after you have used the cloning script.*
 
 This will register a new post type with all the standard settings. If you would like to modify the post type settings you can use the `{$post_type}_register_args` filter. See [the WordPress codex page](http://codex.wordpress.org/Function_Reference/register_post_type) for all available arguments.
 
@@ -39,9 +39,9 @@ This will register a new post type with all the standard settings. If you would 
 
 Using the [taxonomy API](https://github.com/hlashbrooke/am2-facebook-crawlable-comments/blob/master/includes/lib/class-am2-facebook-crawlable-comments-taxonomy.php) and the wrapper function from the main plugin class you can easily register new taxonomies with one line of code. For example if you wanted to register a `location` taxonomy that applies to the `listing` post type then you could do it like this:
 
-`WordPress_Plugin_Template()->register_taxonomy( 'location', __( 'Locations', 'am2-facebook-crawlable-comments' ), __( 'Location', 'am2-facebook-crawlable-comments' ), 'listing' );`
+`AM2_FB_Crawlable_Comments()->register_taxonomy( 'location', __( 'Locations', 'am2-facebook-crawlable-comments' ), __( 'Location', 'am2-facebook-crawlable-comments' ), 'listing' );`
 
-*Note that the `WordPress_Plugin_Template()` function name and the `am2-facebook-crawlable-comments` text domain will each be unique to your plugin after you have used the cloning script.*
+*Note that the `AM2_FB_Crawlable_Comments()` function name and the `am2-facebook-crawlable-comments` text domain will each be unique to your plugin after you have used the cloning script.*
 
 This will register a new taxonomy with all the standard settings. If you would like to modify the taxonomy settings you can use the `{$taxonomy}_register_args` filter. See [the WordPress codex page](http://codex.wordpress.org/Function_Reference/register_taxonomy) for all available arguments.
 

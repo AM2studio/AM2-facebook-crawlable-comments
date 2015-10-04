@@ -2,10 +2,10 @@
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
-class WordPress_Plugin_Template_Settings {
+class AM2_FB_Crawlable_Comments_Settings {
 
 	/**
-	 * The single instance of WordPress_Plugin_Template_Settings.
+	 * The single instance of AM2_FB_Crawlable_Comments_Settings.
 	 * @var 	object
 	 * @access  private
 	 * @since 	1.0.0
@@ -39,7 +39,7 @@ class WordPress_Plugin_Template_Settings {
 	public function __construct ( $parent ) {
 		$this->parent = $parent;
 
-		$this->base = 'wpt_';
+		$this->base = 'am2fbcc_';
 
 		// Initialise settings
 		add_action( 'init', array( $this, 'init_settings' ), 11 );
@@ -67,7 +67,7 @@ class WordPress_Plugin_Template_Settings {
 	 * @return void
 	 */
 	public function add_menu_item () {
-		$page = add_options_page( __( 'Plugin Settings', 'am2-facebook-crawlable-comments' ) , __( 'Plugin Settings', 'am2-facebook-crawlable-comments' ) , 'manage_options' , $this->parent->_token . '_settings' ,  array( $this, 'settings_page' ) );
+		$page = add_options_page( __( 'AM2 FB Crawlable Comments', 'am2-facebook-crawlable-comments' ) , __( 'AM2 FB Crawlable Comments', 'am2-facebook-crawlable-comments' ) , 'manage_options' , $this->parent->_token . '_settings' ,  array( $this, 'settings_page' ) );
 		add_action( 'admin_print_styles-' . $page, array( $this, 'settings_assets' ) );
 	}
 
@@ -108,76 +108,45 @@ class WordPress_Plugin_Template_Settings {
 	private function settings_fields () {
 
 		$settings['standard'] = array(
-			'title'					=> __( 'Standard', 'am2-facebook-crawlable-comments' ),
-			'description'			=> __( 'These are fairly standard form input fields.', 'am2-facebook-crawlable-comments' ),
+			'title'					=> __( 'App settings', 'am2-facebook-crawlable-comments' ),
+			'description'			=> __( 'Facebook App settings.', 'am2-facebook-crawlable-comments' ),
 			'fields'				=> array(
 				array(
-					'id' 			=> 'text_field',
-					'label'			=> __( 'Some Text' , 'am2-facebook-crawlable-comments' ),
-					'description'	=> __( 'This is a standard text field.', 'am2-facebook-crawlable-comments' ),
+					'id' 			=> 'fb_app_id',
+					'label'			=> __( 'Facebook App ID' , 'am2-facebook-crawlable-comments' ),
+					'description'	=> __( 'Enter your Facebook App ID.', 'am2-facebook-crawlable-comments' ),
 					'type'			=> 'text',
 					'default'		=> '',
-					'placeholder'	=> __( 'Placeholder text', 'am2-facebook-crawlable-comments' )
+					'placeholder'	=> __( 'FB App ID', 'am2-facebook-crawlable-comments' )
 				),
 				array(
-					'id' 			=> 'password_field',
-					'label'			=> __( 'A Password' , 'am2-facebook-crawlable-comments' ),
-					'description'	=> __( 'This is a standard password field.', 'am2-facebook-crawlable-comments' ),
-					'type'			=> 'password',
+					'id' 			=> 'fb_app_secret',
+					'label'			=> __( 'Facebook App Secret' , 'am2-facebook-crawlable-comments' ),
+					'description'	=> __( 'Enter your Facebook App Secret.', 'am2-facebook-crawlable-comments' ),
+					'type'			=> 'text',
 					'default'		=> '',
-					'placeholder'	=> __( 'Placeholder text', 'am2-facebook-crawlable-comments' )
-				),
+					'placeholder'	=> __( 'FB App Secret', 'am2-facebook-crawlable-comments' )
+				),				
 				array(
-					'id' 			=> 'secret_text_field',
-					'label'			=> __( 'Some Secret Text' , 'am2-facebook-crawlable-comments' ),
-					'description'	=> __( 'This is a secret text field - any data saved here will not be displayed after the page has reloaded, but it will be saved.', 'am2-facebook-crawlable-comments' ),
-					'type'			=> 'text_secret',
-					'default'		=> '',
-					'placeholder'	=> __( 'Placeholder text', 'am2-facebook-crawlable-comments' )
-				),
-				array(
-					'id' 			=> 'text_block',
-					'label'			=> __( 'A Text Block' , 'am2-facebook-crawlable-comments' ),
-					'description'	=> __( 'This is a standard text area.', 'am2-facebook-crawlable-comments' ),
-					'type'			=> 'textarea',
-					'default'		=> '',
-					'placeholder'	=> __( 'Placeholder text for this textarea', 'am2-facebook-crawlable-comments' )
-				),
-				array(
-					'id' 			=> 'single_checkbox',
-					'label'			=> __( 'An Option', 'am2-facebook-crawlable-comments' ),
-					'description'	=> __( 'A standard checkbox - if you save this option as checked then it will store the option as \'on\', otherwise it will be an empty string.', 'am2-facebook-crawlable-comments' ),
+					'id' 			=> 'include_js_sdk',
+					'label'			=> __( 'Include JS SDK' , 'am2-facebook-crawlable-comments' ),
+					'description'	=> __( 'Include FB JS SDK on all pages.', 'am2-facebook-crawlable-comments' ),
 					'type'			=> 'checkbox',
-					'default'		=> ''
+					'default'		=> '',
+					//'placeholder'	=> __( 'FB App Secret', 'am2-facebook-crawlable-comments' )
 				),
 				array(
-					'id' 			=> 'select_box',
-					'label'			=> __( 'A Select Box', 'am2-facebook-crawlable-comments' ),
-					'description'	=> __( 'A standard select box.', 'am2-facebook-crawlable-comments' ),
-					'type'			=> 'select',
-					'options'		=> array( 'drupal' => 'Drupal', 'joomla' => 'Joomla', 'wordpress' => 'WordPress' ),
-					'default'		=> 'wordpress'
+					'id' 			=> 'sdk_locale',
+					'label'			=> __( 'Facebook SDK Locale' , 'am2-facebook-crawlable-comments' ),
+					'description'	=> __( 'Examples: en_US (English, United States) or hr_HR (Croatian, Croatia).', 'am2-facebook-crawlable-comments' ),
+					'type'			=> 'text',
+					'default'		=> 'en_US',
+					'placeholder'	=> __( 'SDK Locale', 'am2-facebook-crawlable-comments' )
 				),
-				array(
-					'id' 			=> 'radio_buttons',
-					'label'			=> __( 'Some Options', 'am2-facebook-crawlable-comments' ),
-					'description'	=> __( 'A standard set of radio buttons.', 'am2-facebook-crawlable-comments' ),
-					'type'			=> 'radio',
-					'options'		=> array( 'superman' => 'Superman', 'batman' => 'Batman', 'ironman' => 'Iron Man' ),
-					'default'		=> 'batman'
-				),
-				array(
-					'id' 			=> 'multiple_checkboxes',
-					'label'			=> __( 'Some Items', 'am2-facebook-crawlable-comments' ),
-					'description'	=> __( 'You can select multiple items and they will be stored as an array.', 'am2-facebook-crawlable-comments' ),
-					'type'			=> 'checkbox_multi',
-					'options'		=> array( 'square' => 'Square', 'circle' => 'Circle', 'rectangle' => 'Rectangle', 'triangle' => 'Triangle' ),
-					'default'		=> array( 'circle', 'triangle' )
-				)
 			)
 		);
 
-		$settings['extra'] = array(
+		/*$settings['extra'] = array(
 			'title'					=> __( 'Extra', 'am2-facebook-crawlable-comments' ),
 			'description'			=> __( 'These are some extra input fields that maybe aren\'t as common as the others.', 'am2-facebook-crawlable-comments' ),
 			'fields'				=> array(
@@ -213,7 +182,7 @@ class WordPress_Plugin_Template_Settings {
 					'default'		=> array( 'linux' )
 				)
 			)
-		);
+		);*/
 
 		$settings = apply_filters( $this->parent->_token . '_settings_fields', $settings );
 
@@ -277,8 +246,9 @@ class WordPress_Plugin_Template_Settings {
 	public function settings_page () {
 
 		// Build page HTML
+		//$html = '<div class="wrap" id="' . $this->parent->_token . '_settings">' . "\n";
 		$html = '<div class="wrap" id="' . $this->parent->_token . '_settings">' . "\n";
-			$html .= '<h2>' . __( 'Plugin Settings' , 'am2-facebook-crawlable-comments' ) . '</h2>' . "\n";
+			$html .= '<h2>' . __( 'AM2 FB Crawlable Comments' , 'am2-facebook-crawlable-comments' ) . '</h2>' . "\n";
 
 			$tab = '';
 			if ( isset( $_GET['tab'] ) && $_GET['tab'] ) {
@@ -339,14 +309,14 @@ class WordPress_Plugin_Template_Settings {
 	}
 
 	/**
-	 * Main WordPress_Plugin_Template_Settings Instance
+	 * Main AM2_FB_Crawlable_Comments_Settings Instance
 	 *
-	 * Ensures only one instance of WordPress_Plugin_Template_Settings is loaded or can be loaded.
+	 * Ensures only one instance of AM2_FB_Crawlable_Comments_Settings is loaded or can be loaded.
 	 *
 	 * @since 1.0.0
 	 * @static
-	 * @see WordPress_Plugin_Template()
-	 * @return Main WordPress_Plugin_Template_Settings instance
+	 * @see AM2_FB_Crawlable_Comments()
+	 * @return Main AM2_FB_Crawlable_Comments_Settings instance
 	 */
 	public static function instance ( $parent ) {
 		if ( is_null( self::$_instance ) ) {

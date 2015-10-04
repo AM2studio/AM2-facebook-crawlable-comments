@@ -2,7 +2,7 @@
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
-class WordPress_Plugin_Template_Taxonomy {
+class AM2_FB_Crawlable_Comments_Taxonomy {
 
 	/**
 	 * The name for the taxonomy.

@@ -2,7 +2,7 @@
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
-class WordPress_Plugin_Template_Post_Type {
+class AM2_FB_Crawlable_Comments_Post_Type {
 
 	/**
 	 * The name for the custom post type.
@@ -107,6 +107,8 @@ class WordPress_Plugin_Template_Post_Type {
 		);
 
 		$args = array_merge($args, $this->options);
+		
+				//var_dump($args);
 
 		register_post_type( $this->post_type, apply_filters( $this->post_type . '_register_args', $args, $this->post_type ) );
 	}

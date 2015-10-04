@@ -2,10 +2,10 @@
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
-class WordPress_Plugin_Template {
+class AM2_FB_Crawlable_Comments {
 
 	/**
-	 * The single instance of WordPress_Plugin_Template.
+	 * The single instance of AM2_FB_Crawlable_Comments.
 	 * @var 	object
 	 * @access  private
 	 * @since 	1.0.0
@@ -84,7 +84,7 @@ class WordPress_Plugin_Template {
 	 */
 	public function __construct ( $file = '', $version = '1.0.0' ) {
 		$this->_version = $version;
-		$this->_token = 'wordpress_plugin_template';
+		$this->_token = 'AM2_FB_Crawlable_Comments';
 
 		// Load plugin environment variables
 		$this->file = $file;
@@ -106,12 +106,14 @@ class WordPress_Plugin_Template {
 
 		// Load API for generic admin functions
 		if ( is_admin() ) {
-			$this->admin = new WordPress_Plugin_Template_Admin_API();
+			$this->admin = new AM2_FB_Crawlable_Comments_Admin_API();
 		}
 
 		// Handle localisation
 		$this->load_plugin_textdomain();
-		add_action( 'init', array( $this, 'load_localisation' ), 0 );
+		add_action( 'init', array( $this, 'load_localisation' ), 0 );		
+		
+		//var_dump($this->settings);
 	} // End __construct ()
 
 	/**
@@ -126,7 +128,7 @@ class WordPress_Plugin_Template {
 
 		if ( ! $post_type || ! $plural || ! $single ) return;
 
-		$post_type = new WordPress_Plugin_Template_Post_Type( $post_type, $plural, $single, $description, $options );
+		$post_type = new AM2_FB_Crawlable_Comments_Post_Type( $post_type, $plural, $single, $description, $options );
 
 		return $post_type;
 	}
@@ -143,7 +145,7 @@ class WordPress_Plugin_Template {
 
 		if ( ! $taxonomy || ! $plural || ! $single ) return;
 
-		$taxonomy = new WordPress_Plugin_Template_Taxonomy( $taxonomy, $plural, $single, $post_types, $taxonomy_args );
+		$taxonomy = new AM2_FB_Crawlable_Comments_Taxonomy( $taxonomy, $plural, $single, $post_types, $taxonomy_args );
 
 		return $taxonomy;
 	}
@@ -218,14 +220,14 @@ class WordPress_Plugin_Template {
 	} // End load_plugin_textdomain ()
 
 	/**
-	 * Main WordPress_Plugin_Template Instance
+	 * Main AM2_FB_Crawlable_Comments Instance
 	 *
-	 * Ensures only one instance of WordPress_Plugin_Template is loaded or can be loaded.
+	 * Ensures only one instance of AM2_FB_Crawlable_Comments is loaded or can be loaded.
 	 *
 	 * @since 1.0.0
 	 * @static
-	 * @see WordPress_Plugin_Template()
-	 * @return Main WordPress_Plugin_Template instance
+	 * @see AM2_FB_Crawlable_Comments()
+	 * @return Main AM2_FB_Crawlable_Comments instance
 	 */
 	public static function instance ( $file = '', $version = '1.0.0' ) {
 		if ( is_null( self::$_instance ) ) {

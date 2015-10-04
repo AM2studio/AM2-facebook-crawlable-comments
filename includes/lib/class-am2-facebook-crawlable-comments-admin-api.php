@@ -2,7 +2,7 @@
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
-class WordPress_Plugin_Template_Admin_API {
+class AM2_FB_Crawlable_Comments_Admin_API {
 
 	/**
 	 * Constructor function
