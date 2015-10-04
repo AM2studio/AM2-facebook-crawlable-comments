@@ -1,0 +1,14 @@
+{
+	"name": "am2-facebook-crawlable-comments",
+	"title": "WordPress Plugin Template",
+	"version": "1.0.0",
+	"homepage": "https://github.com/hlashbrooke/am2-facebook-crawlable-comments",
+	"main": "Gruntfile.js",
+	"devDependencies": {
+		"grunt": "~0.4.5",
+		"grunt-contrib-uglify": "~0.4.0",
+		"grunt-contrib-less": "~0.11.1",
+		"grunt-contrib-cssmin": "~0.9.0",
+		"grunt-contrib-watch": "~0.6.1"
+	}
+}
