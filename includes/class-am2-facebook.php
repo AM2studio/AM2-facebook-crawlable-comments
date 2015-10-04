@@ -89,22 +89,26 @@ class AM2_Facebook {
 			}(document, 'script', 'facebook-jssdk'));</script>
 		<?php }
 		
+		echo '<div class="am2_fb_comments_wrap">';
+		
 		echo '<div class="fb-comments" data-href="'.$this->current_url.'" data-numposts="5"></div>';		
 		
 		$this->printCrawlableComments($this->fb_comments->data);
+		
+		echo '</div>';
 	}
 	
 	public function printCrawlableComments($fb_comments){
 		if(empty($fb_comments)) return;
 		
-		echo "<ul>";
+		echo '<ul class="am2_fb_comments">';
 		foreach($fb_comments as $fb_comment){ ?>
-			<li>
+			<li class="<?php if(isset($fb_comment->comments) && count($fb_comment->comments->data) > 0) echo "has-children";?>">
 				<?php echo $fb_comment->message;?>
 				<?php if(isset($fb_comment->comments)) $this->printCrawlableComments($fb_comment->comments->data); ?>
 			</li>
 		<?php }
-		echo "</ul>";
+		echo '</ul>';
 	}
 	
 	public function saveFBObject($fb_comments){
