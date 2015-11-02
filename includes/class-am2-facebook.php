@@ -29,9 +29,12 @@ class AM2_Facebook {
 		global $wp;
 		global $wpdb;		
 		
-		$this->current_url = home_url(add_query_arg(array(),$wp->request)); // $current_url = "http://she.hr/ah-ta-sretna-maja/"; // 	
+		$this->current_url = site_url() . $_SERVER['REQUEST_URI']; //home_url(add_query_arg(array(),$wp->request)); // $current_url = "http://she.hr/ah-ta-sretna-maja/"; // 	
+		if(isset($_GET['fbcc_dump'])){
+			var_dump($this->current_url);
+		}
 				
-		$fbo_wp_id = $wpdb->get_var($wpdb->prepare("SELECT wpm.post_id FROM $wpdb->postmeta wpm WHERE wpm.meta_value = '%s' AND wpm.meta_key = 'object_url'", $current_url));						
+		$fbo_wp_id = $wpdb->get_var($wpdb->prepare("SELECT wpm.post_id FROM $wpdb->postmeta wpm WHERE wpm.meta_value = '%s' AND wpm.meta_key = 'object_url'", $this->current_url));						
 		
 		if(empty($fbo_wp_id)){
 			
@@ -41,7 +44,7 @@ class AM2_Facebook {
 				$this->current_object_id = $fbo->og_object->id;
 			
 				$my_post = array(
-					'post_title'    => $current_url,
+					'post_title'    => $this->current_url,
 					'post_content'  => '',
 					'post_status'   => 'draft',
 					'post_type' => 'fb_object',				
@@ -113,7 +116,7 @@ class AM2_Facebook {
 	
 	public function saveFBObject($fb_comments){
 		if($fb_comments){
-			update_post_meta($post_id, 'object_url', $current_url );
+			update_post_meta($post_id, 'object_url', $this->current_url );
 			update_post_meta($post_id, 'object_id', $fbo->og_object->id );
 			update_post_meta($post_id, 'time_last_fetch', time());
 			update_post_meta($post_id, 'fb_comments', $fb_comments);			
